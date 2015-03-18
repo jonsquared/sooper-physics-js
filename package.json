@@ -1,0 +1,35 @@
+{
+  "name": "sooper-physics",
+  "version": "0.0.0",
+  "description": "Simple JavaScript physics engine ideal for games using sooper inheritance",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonsquared/sooper-physics-js.git"
+  },
+  "keywords": [
+    "sooper",
+    "physics"
+  ],
+  "author": "Jon E. John <jon.e.john@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonsquared/sooper-physics-js/issues"
+  },
+  "homepage": "https://github.com/jonsquared/sooper-physics-js",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jasmine": "^0.8.1",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-file-append": "0.0.5",
+    "grunt-jasmine-node": "^0.2.1",
+    "grunt-text-replace": "^0.4.0"
+  },
+  "dependencies": {
+    "sooper": "^2.2.0"
+  }
+}
