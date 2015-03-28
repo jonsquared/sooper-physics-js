@@ -1,2 +1,2 @@
-if (typeof physics == 'undefined' && typeof require != 'undefined')
+if (typeof require != 'undefined')
     physics = require('../src/index.js');

@@ -1,5 +1,9 @@
 Entity = require('./Entity');
+CircleEntity = require('./CircleEntity');
+RectangleEntity = require('./RectangleEntity');
 
 module.exports = {
-    Entity: Entity
+    Entity: Entity,
+    CircleEntity: CircleEntity,
+    RectangleEntity: RectangleEntity
 }

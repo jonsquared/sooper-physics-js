@@ -1,2 +1,2 @@
-if (typeof require != 'undefined' && typeof RectangleBounds == 'undefined')
+if (typeof require != 'undefined')
     RectangleBounds = require('../src/RectangleBounds.js');

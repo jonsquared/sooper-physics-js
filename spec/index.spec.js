@@ -3,7 +3,9 @@ describe('physics', function() {
         expect(physics).toBeDefined();
     });
 
-    it('has an Entity class', function() {
+    it('has expected classes', function() {
         expect(physics.Entity).toBeDefined();
+        expect(physics.CircleEntity).toBeDefined();
+        expect(physics.RectangleEntity).toBeDefined();
     });
 });

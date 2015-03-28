@@ -1,2 +1,2 @@
-if (typeof require != 'undefined' && typeof CirlceBounds == 'undefined')
+if (typeof require != 'undefined')
     CircleBounds = require('../src/CircleBounds.js');

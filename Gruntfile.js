@@ -68,6 +68,7 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-debug-task');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-jasmine-node');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
@@ -94,7 +95,7 @@ module.exports = function(grunt) {
     grunt.file.write('build/sooper.js',content);
   });
 
-  grunt.registerTask('test', ['jasmine_node','watch']);
+  grunt.registerTask('test', ['jasmine_node']);
   grunt.registerTask('build', ['jasmine_node','file_append','replace','replaceSingleUseFunctions','uglify','jasmine'])
   grunt.registerTask('default', ['build']);
 };
