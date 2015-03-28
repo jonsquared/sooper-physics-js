@@ -1,5 +1,11 @@
-describe('sooper_physics', function() {
+describe('physics', function() {
     it('exists', function() {
-        expect(sooper_physics).toBeDefined();
+        expect(physics).toBeDefined();
+    });
+
+    it('has expected classes', function() {
+        expect(physics.Entity).toBeDefined();
+        expect(physics.CircleEntity).toBeDefined();
+        expect(physics.RectangleEntity).toBeDefined();
     });
 });
