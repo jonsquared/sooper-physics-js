@@ -70,7 +70,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-debug-task');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-jasmine-node');
+  grunt.loadNpmTasks('grunt-jasmine-node-new');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-file-append');
