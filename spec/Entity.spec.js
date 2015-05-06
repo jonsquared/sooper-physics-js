@@ -26,7 +26,9 @@ describe('Entity', function() {
                 ax: 0,
                 ay: 0,
                 restitution: 0,
-                friction: 1
+                friction: 1,
+                collisionCategory: 0x0001,
+                collisionMask: 0xFFFF
             }));
         });
     });
@@ -42,7 +44,9 @@ describe('Entity', function() {
                 ax: 5,
                 ay: 6,
                 restitution: 0.5,
-                friction: 0.6
+                friction: 0.6,
+                collisionCategory: 0x0002,
+                collisionMask: 0x0000
             };
 
             expect(new Entity(config)).toEqual(jasmine.objectContaining(config));

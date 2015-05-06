@@ -1,6 +1,6 @@
 sooper = require('sooper');
-Entity = require('../src/Entity.js');
-RectangleBounds = require('../src/RectangleBounds.js');
+Entity = require('./Entity');
+RectangleBounds = require('./RectangleBounds');
 
 var RectangleEntity = sooper.define({
     inherits: Entity,
