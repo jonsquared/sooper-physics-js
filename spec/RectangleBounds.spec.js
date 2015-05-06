@@ -5,7 +5,7 @@ describe('RectangleBounds', function() {
     });
 
     it('has correct static properties', function() {
-        expect(RectangleBounds.TYPE).toBe('rectangle');
+        expect(RectangleBounds.TYPE).toBe(0x0002);
     });
 
     describe('default constructor', function() {

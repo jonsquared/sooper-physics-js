@@ -1,6 +1,6 @@
 sooper = require('sooper');
-Entity = require('../src/Entity.js');
-CircleBounds = require('../src/CircleBounds.js');
+Entity = require('./Entity');
+CircleBounds = require('./CircleBounds');
 
 var CircleEntity = sooper.define({
     inherits: Entity,

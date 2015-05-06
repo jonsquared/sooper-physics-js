@@ -2,7 +2,7 @@ sooper = require('sooper');
 
 RectangleBounds = sooper.define({
     statics: {
-        TYPE: 'rectangle'
+        TYPE: 0x0002
     },
     width: 1,
     height: 1,

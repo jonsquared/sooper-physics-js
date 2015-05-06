@@ -5,7 +5,7 @@ describe('CircleBounds', function() {
     });
 
     it('has correct static properties', function() {
-        expect(CircleBounds.TYPE).toBe('circle');
+        expect(CircleBounds.TYPE).toBe(0x0001);
     });
 
     describe('default constructor', function() {

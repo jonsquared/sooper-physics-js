@@ -2,7 +2,7 @@ sooper = require('sooper');
 
 CircleBounds = sooper.define({
     statics: {
-        TYPE: 'circle'
+        TYPE: 0x0001
     },
     radius: 0.5,
     constructor: function(config) {

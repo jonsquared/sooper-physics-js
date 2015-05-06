@@ -14,6 +14,8 @@ var Entity = sooper.define({
     ay: 0,
     restitution: 0,
     friction: 1,
+    collisionCategory: 0x0001,
+    collisionMask: 0xFFFF,
     constructor: function(config) {
         if (!config)
             return;
@@ -35,6 +37,10 @@ var Entity = sooper.define({
             this.restitution = config.restitution;
         if (!isNaN(config.friction))
             this.friction = config.friction;
+        if (!isNaN(config.collisionCategory))
+            this.collisionCategory = config.collisionCategory;
+        if (!isNaN(config.collisionMask))
+            this.collisionMask = config.collisionMask;
     }
 });
 Entity.prototype.type = Entity.DYNAMIC;
