@@ -16,14 +16,19 @@ var CollisionDetector = sooper.define({
         var funcs = this.collideFuncs,
             collisions = [],
             len = entities.length,
-            collider, collidee;
+            collider, collidee,
+            colliderCategory, colliderMask;
         for (var i=0; i<len-1; i++) {
             collider = entities[i];
-            if (collider.type == Entity.STATIC)
+            if (collider.type == Entity.STATIC ||
+                !(colliderCategory = collider.collisionCategory) ||
+                !(colliderMask = collider.collisionMask))
                 continue;
             for (var j=i+1; j<len; j++) {
                 collidee = entities[j];
-                if (funcs[collider.boundsType|collidee.boundsType](collider,collidee))
+                if (colliderMask&collidee.collisionCategory &&
+                    collidee.collisionMask&colliderCategory &&
+                    funcs[collider.boundsType|collidee.boundsType](collider,collidee))
                     collisions.push(collider,collidee);
             }
         }

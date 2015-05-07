@@ -210,5 +210,51 @@ describe('CollisionDetector', function() {
             });
         });
 
+        describe('filtered collisions', function() {
+            it('when given an entity with a 0 category and an overlapping entity, returns no collisions', function() {
+                entities = [
+                    new CircleEntity({collisionCategory:0x0000}),
+                    new CircleEntity()
+                ]
+
+                collisions = detector.detect(entities);
+
+                expectCollisions(entities,collisions,[]);
+            });
+
+            it('when given an entity with a 0 mask and an overlapping entity, returns no collisions', function() {
+                entities = [
+                    new CircleEntity({collisionMask:0x0000}),
+                    new CircleEntity()
+                ]
+
+                collisions = detector.detect(entities);
+
+                expectCollisions(entities,collisions,[]);
+            });
+
+            it('when given overlapping entities with mismatched collision category and mask, returns no collisions', function() {
+                entities = [
+                    new CircleEntity({collisionCategory:0xAAAAAAAA,collisionMask:0x55555555}),
+                    new CircleEntity({collisionCategory:0xAAAAAAAA,collisionMask:0x55555555})
+                ]
+
+                collisions = detector.detect(entities);
+
+                expectCollisions(entities,collisions,[]);
+            });
+
+            it('when given overlapping entities with matched collision category and mask, returns correct collision pairs', function() {
+                entities = [
+                    new CircleEntity({collisionCategory:0xAAAAAAAA,collisionMask:0x55555555}),
+                    new CircleEntity({collisionCategory:0x55555555,collisionMask:0xAAAAAAAA})
+                ]
+
+                collisions = detector.detect(entities);
+
+                expectCollisions(entities,collisions,[0,1]);
+            });
+
+        });
     });
 });
