@@ -14,8 +14,8 @@ var Entity = sooper.define({
     ay: 0,
     restitution: 0,
     friction: 1,
-    collisionCategory: 0x0001,
-    collisionMask: 0xFFFF,
+    collisionCategory: 0x00000001,
+    collisionMask: 0xFFFFFFFF,
     constructor: function(config) {
         if (!config)
             return;
