@@ -36,10 +36,10 @@ var CollisionDetector = sooper.define({
     },
 
     collideCircleCircle: function(collider, collidee) {
-        var dx=collidee.x-collider.x,
-            dy=collidee.y-collider.y,
-            distance = Math.sqrt( dx*dx + dy*dy );
-        return distance <= collider.radius + collidee.radius;
+        var dx = collidee.x-collider.x,
+            dy = collidee.y-collider.y,
+            collisionDistance = collider.radius + collidee.radius;
+        return dx*dx + dy*dy <= collisionDistance*collisionDistance;
     },
 
     collideRectangleRectangle: function(collider, collidee) {
