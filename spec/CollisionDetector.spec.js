@@ -11,6 +11,21 @@ describe('CollisionDetector', function() {
                 detector = new CollisionDetector();
             }).not.toThrow();
         });
+        it('has correct default properties', function() {
+            expect(detector).toEqual(jasmine.objectContaining({
+                epsilon: Number.EPSILON
+            }));
+        });
+    });
+
+    describe('constructor', function() {
+        it('accepts a configuration of all configurable properties', function() {
+            var config = {
+                epsilon: 0.000001
+            };
+            detector = new CollisionDetector(config);
+            expect(detector).toEqual(jasmine.objectContaining(config));
+        })
     });
 
     describe('detect', function() {
@@ -45,7 +60,7 @@ describe('CollisionDetector', function() {
                 expectCollisions(entities,collisions,[]);
             });
 
-            it('when given 2 circles that touch, returns 1 collision pair', function() {
+            it('when given 2 circles that touch, returns empty array', function() {
                 entities = [
                     new CircleEntity({}),
                     new CircleEntity({x:1})
@@ -53,7 +68,18 @@ describe('CollisionDetector', function() {
 
                 collisions = detector.detect(entities);
 
-                expectCollisions(entities,collisions,[0,1]);
+                expectCollisions(entities,collisions,[]);
+            });
+
+            it('when given 2 circles that overlap by less than epsilon, returns empty array', function() {
+                entities = [
+                    new CircleEntity({}),
+                    new CircleEntity({x:0.9999999999})
+                ]
+
+                collisions = detector.detect(entities);
+
+                expectCollisions(entities,collisions,[]);
             });
 
             it('when given 2 circles that overlap, returns 1 collision pair', function() {
@@ -70,13 +96,13 @@ describe('CollisionDetector', function() {
             it('when given multiple circles with some collisions, returns correct collision pairs', function() {
                 entities = [
                     new CircleEntity(),
-                    new CircleEntity({x:1}),
+                    new CircleEntity({x:0.9}),
                     new CircleEntity({x:3}),
-                    new CircleEntity({x:-1}),
+                    new CircleEntity({x:-0.9}),
                     new CircleEntity({x:-3}),
-                    new CircleEntity({y:1}),
+                    new CircleEntity({y:0.9}),
                     new CircleEntity({y:3}),
-                    new CircleEntity({y:-1}),
+                    new CircleEntity({y:-0.9}),
                     new CircleEntity({y:-3}),
                 ]
 
@@ -98,7 +124,7 @@ describe('CollisionDetector', function() {
                 expectCollisions(entities,collisions,[]);
             });
 
-            it('when given 2 rectangles that touch on an edge, returns 1 collision pair', function() {
+            it('when given 2 rectangles that touch on an edge, returns empty array', function() {
                 entities = [
                     new RectangleEntity({}),
                     new RectangleEntity({x:1})
@@ -106,10 +132,10 @@ describe('CollisionDetector', function() {
 
                 collisions = detector.detect(entities);
 
-                expectCollisions(entities,collisions,[0,1]);
+                expectCollisions(entities,collisions,[]);
             });
 
-            it('when given 2 rectangles that touch on a corner, returns 1 collision pair', function() {
+            it('when given 2 rectangles that touch on a corner, returns empty array', function() {
                 entities = [
                     new RectangleEntity({}),
                     new RectangleEntity({x:1,y:1})
@@ -117,7 +143,21 @@ describe('CollisionDetector', function() {
 
                 collisions = detector.detect(entities);
 
-                expectCollisions(entities,collisions,[0,1]);
+                expectCollisions(entities,collisions,[]);
+            });
+
+            it('when given rectangles that overlap by less than epsilon, returns empty array', function() {
+                entities = [
+                    new RectangleEntity({}),
+                    new RectangleEntity({x:0.9999999999}),
+                    new RectangleEntity({x:-0.9999999999}),
+                    new RectangleEntity({y:0.9999999999}),
+                    new RectangleEntity({y:-0.9999999999})
+                ]
+
+                collisions = detector.detect(entities);
+
+                expectCollisions(entities,collisions,[]);
             });
 
             it('when given 2 rectangles that overlap, returns 1 collision pair', function() {
@@ -134,13 +174,13 @@ describe('CollisionDetector', function() {
             it('when given multiple rectangles with some collisions, returns correct collision pairs', function() {
                 entities = [
                     new RectangleEntity(),
-                    new RectangleEntity({x:1}),
+                    new RectangleEntity({x:0.9}),
                     new RectangleEntity({x:3}),
-                    new RectangleEntity({x:-1}),
+                    new RectangleEntity({x:-0.9}),
                     new RectangleEntity({x:-3}),
-                    new RectangleEntity({y:1}),
+                    new RectangleEntity({y:0.9}),
                     new RectangleEntity({y:3}),
-                    new RectangleEntity({y:-1}),
+                    new RectangleEntity({y:-0.9}),
                     new RectangleEntity({y:-3}),
                 ]
 
@@ -162,6 +202,17 @@ describe('CollisionDetector', function() {
                 expectCollisions(entities,collisions,[]);
             });
 
+            it('when given a circle and a rectangle that overlap by less than epsilon, returns empty array', function() {
+                entities = [
+                    new CircleEntity({}),
+                    new RectangleEntity({x:0.9999999999})
+                ]
+
+                collisions = detector.detect(entities);
+
+                expectCollisions(entities,collisions,[]);
+            });
+
             it('when given a circle and a rectangle that overlap, returns 1 collision pair', function() {
                 entities = [
                     new CircleEntity({}),
@@ -173,9 +224,9 @@ describe('CollisionDetector', function() {
                 expectCollisions(entities,collisions,[0,1]);
             });
 
-            it('when given multiple circles that touch a rectangle, returns correct collision pairs', function() {
+            it('when given multiple circles that overlap a rectangle, returns correct collision pairs', function() {
                 entities = [
-                    new RectangleEntity({width:3,height:3}),
+                    new RectangleEntity({width:3.1,height:3.1}),
                     new CircleEntity({x:-2}),
                     new CircleEntity({x:-2,y:-2,radius:Math.SQRT2}),
                     new CircleEntity({y:-2}),
@@ -191,9 +242,9 @@ describe('CollisionDetector', function() {
                 expectCollisions(entities,collisions,[0,1,0,2,0,3,0,4,0,5,0,6,0,7,0,8]);
             });
 
-            it('when given multiple rectangles that touch a circle, returns correct collision pairs', function() {
+            it('when given multiple rectangles that overlap a circle, returns correct collision pairs', function() {
                 entities = [
-                    new CircleEntity({radius:2}),
+                    new CircleEntity({radius:2.1}),
                     new RectangleEntity({x:-2.5}),
                     new RectangleEntity({x:-Math.SQRT2-0.5,y:-Math.SQRT2-0.5}),
                     new RectangleEntity({y:-2.5}),

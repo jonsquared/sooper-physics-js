@@ -5,7 +5,11 @@ Entity = require('./Entity');
 
 var CollisionDetector = sooper.define({
 
-    constructor: function() {
+    epsilon: Number.EPSILON || Math.pow(2,-52),
+
+    constructor: function(config) {
+        if (config && config.epsilon)
+            this.epsilon = config.epsilon;
         var funcs = this.collideFuncs = {};
         funcs[CircleBounds.TYPE] = this.collideCircleCircle;
         funcs[RectangleBounds.TYPE] = this.collideRectangleRectangle;
@@ -28,7 +32,7 @@ var CollisionDetector = sooper.define({
                 collidee = entities[j];
                 if (colliderMask&collidee.collisionCategory &&
                     collidee.collisionMask&colliderCategory &&
-                    funcs[collider.boundsType|collidee.boundsType](collider,collidee))
+                    funcs[collider.boundsType|collidee.boundsType].call(this,collider,collidee))
                     collisions.push(collider,collidee);
             }
         }
@@ -38,8 +42,10 @@ var CollisionDetector = sooper.define({
     collideCircleCircle: function(collider, collidee) {
         var dx = collidee.x-collider.x,
             dy = collidee.y-collider.y,
-            collisionDistance = collider.radius + collidee.radius;
-        return dx*dx + dy*dy <= collisionDistance*collisionDistance;
+            collisionDistance = collider.radius + collidee.radius - this.epsilon;
+        console.log(dx*dx+dy*dy);
+        console.log(collisionDistance*collisionDistance);
+        return dx*dx + dy*dy < collisionDistance*collisionDistance;
     },
 
     collideRectangleRectangle: function(collider, collidee) {
@@ -48,10 +54,10 @@ var CollisionDetector = sooper.define({
             halfWidth2 = collidee.width/2,
             halfHeight2 = collidee.height/2;
 
-        return !(collider.y + halfHeight1 < collidee.y - halfHeight2 ||
-                 collider.y - halfHeight1 > collidee.y + halfHeight2 ||
-                 collider.x + halfWidth1 < collidee.x - halfWidth2 ||
-                 collider.x - halfWidth1 > collidee.x + halfWidth2);
+        return !(collider.y + halfHeight1 <= collidee.y - halfHeight2 + this.epsilon ||
+                 collider.y - halfHeight1 >= collidee.y + halfHeight2 - this.epsilon ||
+                 collider.x + halfWidth1 <= collidee.x - halfWidth2 + this.epsilon ||
+                 collider.x - halfWidth1 >= collidee.x + halfWidth2 - this.epsilon);
     },
 
     collideCircleRectangle: function(collider, collidee) {
@@ -63,9 +69,9 @@ var CollisionDetector = sooper.define({
             closestY = Math.min(Math.max(rectangle.y-halfHeight,circle.y),rectangle.y+halfHeight),
             dx=circle.x-closestX,
             dy=circle.y-closestY,
-            distance = Math.sqrt( dx*dx + dy*dy );
+            r=circle.radius-this.epsilon;
 
-        return distance <= circle.radius;
+        return dx*dx + dy*dy < r*r;
      }
 });
 
