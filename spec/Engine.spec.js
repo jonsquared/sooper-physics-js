@@ -22,9 +22,17 @@ describe('Engine', function() {
 
     describe('constructor', function() {
         it('can be given custom components', function() {
+            var CustomEntityUpdater = sooper.define({
+                    inherits: EntityUpdater,
+                    update: function() {}
+                }),
+                CustomCollisionDetector = sooper.define({
+                    inherits: CollisionDetector,
+                    detect: function() {}
+                });
             var config = {
-                entityUpdater: { update: function() {} },
-                collisionDetector: { detect: function() {} }
+                entityUpdater: new CustomEntityUpdater(),
+                collisionDetector: new CustomCollisionDetector()
             }
 
             engine = new Engine(config);
@@ -32,10 +40,20 @@ describe('Engine', function() {
             expect(engine.entityUpdater).toBe(config.entityUpdater);
             expect(engine.collisionDetector).toBe(config.collisionDetector);
         });
+
+        it('can be given components configurations', function() {
+            engine = new Engine({
+                collisionDetector: {
+                    epsilon: 42
+                }
+            });
+
+            expect(engine.collisionDetector.epsilon).toBe(42);
+        });
     });
 
     describe('step', function() {
-        it('calls collision dector detect', function() {
+        it('calls component updating functions', function() {
             spyOn(engine.entityUpdater, 'update');
             spyOn(engine.collisionDetector, 'detect');
             engine.step(1);

@@ -6,8 +6,12 @@ CollisionDetector = require('./CollisionDetector');
 var Engine = sooper.define({
     constructor: function(config) {
         this.entities = [];
-        this.entityUpdater = config && config.entityUpdater || new EntityUpdater();
-        this.collisionDetector = config && config.collisionDetector || new CollisionDetector();
+        if (config) {
+            var entityUpdaterConfig = config.entityUpdater,
+                collisionDetectorConfig = config.collisionDetector;
+        }
+        this.entityUpdater = entityUpdaterConfig instanceof EntityUpdater ? entityUpdaterConfig : new EntityUpdater(entityUpdaterConfig);
+        this.collisionDetector = collisionDetectorConfig instanceof CollisionDetector ? collisionDetectorConfig : new CollisionDetector(collisionDetectorConfig);
     },
     step: function(elapsedTime) {
         this.entityUpdater.update(this.entities,elapsedTime);
