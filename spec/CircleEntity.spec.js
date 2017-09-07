@@ -38,7 +38,6 @@ describe('CircleEntity', function() {
                 vy: 4,
                 ax: 5,
                 ay: 6,
-                restitution: 0.5,
                 friction: 0.6,
                 radius: 42
             };

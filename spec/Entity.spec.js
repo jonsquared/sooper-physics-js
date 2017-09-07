@@ -19,13 +19,13 @@ describe('Entity', function() {
         it('has correct default properties', function() {
             expect(e).toEqual(jasmine.objectContaining({
                 type: Entity.DYNAMIC,
+                mass: 1,
                 x: 0,
                 y: 0,
                 vx: 0,
                 vy: 0,
                 ax: 0,
                 ay: 0,
-                restitution: 0,
                 friction: 1,
                 collisionCategory: 0x00000001,
                 collisionMask: 0xFFFFFFFF
@@ -43,7 +43,6 @@ describe('Entity', function() {
                 vy: 4,
                 ax: 5,
                 ay: 6,
-                restitution: 0.5,
                 friction: 0.6,
                 collisionCategory: 0x0002,
                 collisionMask: 0x0000

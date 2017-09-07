@@ -30,7 +30,6 @@ describe('RectangleEntity', function() {
                 vy: 0,
                 ax: 0,
                 ay: 0,
-                restitution: 0,
                 friction: 1,
                 width: 1,
                 height: 1
@@ -51,7 +50,6 @@ describe('RectangleEntity', function() {
                 vy: 4,
                 ax: 5,
                 ay: 6,
-                restitution: 0.1,
                 friction: 0.2,
                 width: 7,
                 height: 8

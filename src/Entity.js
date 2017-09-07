@@ -6,13 +6,13 @@ var Entity = sooper.define({
         KINEMATIC: 1,
         DYNAMIC: 2
     },
+    mass: 1,
     x: 0,
     y: 0,
     vx: 0,
     vy: 0,
     ax: 0,
     ay: 0,
-    restitution: 0,
     friction: 1,
     collisionCategory: 0x00000001,
     collisionMask: 0xFFFFFFFF,
@@ -33,8 +33,6 @@ var Entity = sooper.define({
             this.ax = config.ax;
         if (config.ay)
             this.ay = config.ay;
-        if (config.restitution)
-            this.restitution = config.restitution;
         if (!isNaN(config.friction))
             this.friction = config.friction;
         if (!isNaN(config.collisionCategory))
